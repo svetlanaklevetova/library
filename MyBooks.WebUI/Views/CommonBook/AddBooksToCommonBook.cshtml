@@ -1,0 +1,79 @@
+﻿@model int
+@{
+    ViewBag.Title = "AddBooksToCommonBook";
+}
+<script type="text/javascript">
+    function dragImg(e) {
+        //С помощью e.target мы можем обращаться к перетаскиваемому элементу внутри обработчика события
+        //alert(e.target.id);
+        //Данная команда позволяет нам сохранить значение атрибута id. В первом ее атрибуте мы указываем 
+        //тип данных, которых мы хотим сохранить. В данном случае это обычный текст (text/plain), вторым 
+        //атрибутом должны передаваться сами данные. 
+        e.dataTransfer.setData("text/plain", e.target.id);
+    }
+
+    function dropImgAdd(e) {
+        e.preventDefault();
+        //При извлечении данных Вы должны использовать такой же тип как и при их сохранение
+        var rdata = e.dataTransfer.getData("text/plain");
+        //Очистим содержимое перетаскиваемого элемента
+        //e.target.innerHTML = "";
+        //Сделаем перетаскиваемый элемент элементом потомком принимающей области т.е. фактически мы 
+        //переносим его в содержимое принимающего его элемента
+        e.target.appendChild(document.getElementById(rdata));
+        var hidden = document.getElementById("newVals");
+        var val = hidden.getAttribute("value");
+        hidden.setAttribute("value", val + "," + rdata);
+    }
+
+    function dropImgRemove(e) {
+        e.preventDefault();
+        var rdata = e.dataTransfer.getData("text/plain");
+        e.target.appendChild(document.getElementById(rdata));
+        var hidden = document.getElementById("newVals");
+        var val = hidden.getAttribute("value");
+        hidden.setAttribute("value", val.replace(rdata+",",""));
+    }
+
+    function makeDroppable(e) {
+        //чтобы элемент мог принять другие элементы
+        e.preventDefault();
+    }
+</script>
+<h2>Добавление и удаление произведений</h2>
+
+<table>
+    <tr>
+        <td>
+            <h3>Все произведения:</h3>
+            <div id="commonNewBooksDiv" ondrop="dropImgRemove(event)" ondragover="makeDroppable(event)">
+
+                @foreach (var p in (List<SelectListItem>)ViewBag.Books)
+                {
+                    <div draggable="true" id="@p.Value" ondragstart="dragImg(event)">@p.Text</div>
+                }
+            </div>
+        </td>
+        <td width="250"></td>
+        <td>
+            <h3>Итог:</h3>
+            @using (Html.BeginForm("AddBooksToCommonBook","CommonBook"))
+            { 
+            <div id="commonAllBooksDiv" ondrop="dropImgAdd(event)" ondragover="makeDroppable(event)">
+                <input type="hidden" name="newVals" id="newVals" value="@(String.Join("," , ((List<SelectListItem>)ViewBag.BooksSelected).Select(a=>a.Value).ToArray()))" />
+                <input type="hidden" name="comBook" id="comBook" value="@Html.Encode(Model)">
+
+                @foreach (var p in (List<SelectListItem>)ViewBag.BooksSelected)
+                {
+
+                    <div draggable="true" id="@p.Value" ondragstart="dragImg(event)">@p.Text</div>
+
+                }
+            </div>
+
+    <button type="submit" class="send">Отправить</button>
+            }
+        </td>
+    </tr>
+    
+            </table>

@@ -1,0 +1,105 @@
+﻿@using MyBooks.WebUI.Models
+@using MyBooks.WebUI.HtmlHelpers
+@model HomeListViewModel
+@{
+    ViewBag.Title = "Электронная библиотека";
+}
+
+@helper GenerateAsyncLinks(PagingInfo info, string updateTargetId, string url, string onSuccess, string genre = null)
+        {
+            for (int page = 1; page <= info.TotalPages; page++)
+            {
+                string clasS = "btn btn-default";
+
+                if (page == 1)
+                {
+                    clasS = "selected btn-primary btn btn-default";
+                }
+
+                        <span class="ajaxLink">
+                            @Ajax.ActionLink(page.ToString(), "Index", new { page = page, genre = genre }, new AjaxOptions
+                               {
+                                   UpdateTargetId = updateTargetId,
+                                   Url = genre == null ? Url.Action(url, new { page = page }) : Url.Action(url, new { page = page, genre=genre }),
+                                   OnSuccess = onSuccess
+                               },
+
+                        new { @class = clasS, @id = updateTargetId+page.ToString() })
+                        </span>
+            }
+        }
+
+<script type="text/javascript">
+ 
+    window.CurrentBook = { val: "books"+1 };
+
+    window.CurrentAuthor = { val: "authors" + 1 };
+
+    window.CurrentCommonBook = { val: "common_books" + 1 };
+
+    function updateClassesForLinksAuthors()
+    {
+        updateClassesForLinks(CurrentAuthor, $(this).attr("id"));
+    }
+
+    function updateClassesForLinksBooks()
+    {
+        updateClassesForLinks(CurrentBook, $(this).attr("id"));
+    }
+
+    function updateClassesForLinksCommonBooks() {
+        updateClassesForLinks(CurrentCommonBook, $(this).attr("id"));
+    }
+
+    function updateClassesForLinks(current, targetId)
+    {
+        
+        if (targetId != current.val)
+        {
+            $("#" + targetId).addClass("btn-primary");
+            $("#" + targetId).addClass("selected");
+
+            $("#" + current.val).removeClass("btn-primary");
+            $("#" + current.val).removeClass("selected");
+            //alert(current.val);
+            current.val = targetId;
+           // alert(current.val);
+        }
+
+        
+    }
+    </script>
+
+<div class="mainTabs">
+    <ul>
+        <li><a href="#tab_books" id="tab_for_books">Произведения</a></li>
+        <li><a href="#tab_authors" id="tab_for_authors">Авторы</a></li>
+        <li><a href="#tab_common_books" id="tab_for_common_books">Книги</a></li>
+    </ul>
+
+    <div id="tab_books">
+        <div id="books">@Html.Action("GetBooks")</div>
+        <div>
+            @GenerateAsyncLinks(Model.BookListViewModel.PagingInfo, "books", "GetBooks", "updateClassesForLinksBooks", Model.BookListViewModel.CurrentGenre)
+        </div>
+    </div>
+
+    <div id="tab_authors">
+        <div id="authors">@Html.Action("GetAuthors")</div>
+        @*@Html.Partial("AuthorTable", Model.AuthorListViewModel.Authors)
+        <div>
+            @Html.PageLinks(Model.AuthorListViewModel.PagingInfo, x => Url.Action("Index", new { authorPage = x }))
+        </div>*@
+        @GenerateAsyncLinks(Model.AuthorListViewModel.PagingInfo, "authors", "GetAuthors", "updateClassesForLinksAuthors")
+
+    </div>
+
+    <div id="tab_common_books">
+        <div id="common_books">@Html.Action("GetCommonBooks")</div>
+        @GenerateAsyncLinks(Model.CommonBookListViewModel.PagingInfo, "common_books", "GetCommonBooks", "updateClassesForLinksCommonBooks")
+    </div>
+
+
+  
+</div>
+

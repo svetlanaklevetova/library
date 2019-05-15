@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
+ 
+    <script src="/Scripts/jquery-2.1.4.js"></script>
+    <script src="/Scripts/jquery-ui-1.11.4.js"></script>
+    <link href="~/Scripts/cupertino/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sd').button({ icons: { primary: 'ui-icon-key' } });
+            $('.editAuthor').button({ icons: { primary: 'ui-icon-pencil' } })
+            $('.send').button({ icons: { primary: 'ui-icon-check' } })
+          //  $('.edit').button({ icons: { primary: 'ui-icon-check' } })
+            //$('#sd').click(function (e) { alert("I am working"); });
+            //$('.testSubject').slider();
+             $('#testSubject2').autocomplete({minLength:'1',source:[{label:'bear',value:'Bear Bibeault'},{label:'yehuda',value:'Yehuda Katz'},{label:'genius',value:'Albert Einstein'},{label:'honcho',value:'Pointy-haired Boss'},{label:'comedian',value:'Charlie Chaplin'}],delay:1000});
+            //$("#testSubject2").autocomplete({ source: ["Дмитрий", "Мария", "Владимир", "Алексей", "Екатерина", "Олег", "Ольга"] });
+             $(".datepicker").datepicker({
+                 monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+                 monthNamesShort: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+                 dayNamesMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+                 firstDay: 1,
+                 dateFormat: "dd.mm.yy",
+                 showAnim: "slideDown",
+                 showButtonPanel: "true",
+                 closeText: "Готово",
+                 currentText: "Сегодня",
+                 changeMonth: "true",
+                 changeYear:"true",
+                 showWeek:"true"
+             });
+             $('.mainTabs').tabs({ collapsible: true });
+             $('.testSubjectModal').dialog({ autoOpen: false, closeOnEscape: true, draggable: true, modal: true, resizable: true, hide: "slide", title: "Информация о сайте", buttons: { OK: (function (event) { $(".testSubjectModal").dialog("close"); }) } });
+
+             $('#sd').click(function () {
+                 $('.testSubjectModal').dialog('open');
+             });
+        })
+     </script>
+    <style>
+        .ui-autocomplete.ui-menu {opacity: 0.7;}
+        .ui-autocomplete.ui-menu .ui-menu-item {font-size:0.75em;}
+        .ui-autocomplete.ui-menu a.ui-state-hover {border-color:pink;}
+        .ui-widget-content a.edit{color:#0094ff}
+        li.ui-tabs-selected a { background-color:crimson; }
+        .navbar {background-color:#aed0ea; border-color: #aed0ea;}
+        .editAuthor {width:30px;}
+        .field-validation-error {color:#f00;}
+        .validation-summary-errors {
+            color: #f00;
+            font-weight: bold;
+        }
+        .text-box{border:2px solid #0094ff; background-color:#aed0ea; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"Arial"; font-style:italic; font-size:14px;}
+        .input-validation-error{
+            border:2px solid #f00; background-color:#fee;
+        }
+       
+        #commonAllBooksDiv, #commonNewBooksDiv {
+           width:320px;
+           
+           border:4px solid #aed0ea;
+           border-radius: 10px;
+           padding:10px;
+           font-family: Verdana, sans-serif;
+           margin-top: 20px;
+           margin-bottom:20px;
+}
+    </style>
+</head>
+<body>
+  <div class="navbar navbar-inverse" role="navigation">
+      <a class="navbar-brand" href="#">Электронная библиотека</a>
+  </div>
+    <div class="row panel">
+        <div id="categories" class="col-xs-3">
+            @Html.Action("Menu", "Nav")
+        </div>
+        <div class="col-xs-8">
+            @RenderBody()
+            
+
+            @*<div class="testSubjectModal" title="Test subject dialog">
+                <p>Сайт содержит информацию о книгах.</p>
+            </div>
+            
+            <button id="sd">Информация</button>
+
+
+            <input type="text" id="testSubject2" />
+            <input type='text' id='datepicker' />*@
+
+
+            
+        </div>
+    
+        <div class="col-xs-10" style="display:block">
+            <div class="testSubject"></div>
+
+
+        </div>
+        </div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿@model MyBooks.Domain.Entities.Author
+@{
+    ViewBag.Title = "Профиль автора";
+}
+
+<h2>@string.Format("{0} {1}", Model.fname, Model.lname)</h2>
+
+@if (Model.birthdate != null && Model.deathdate != null)
+{
+    <h3>@string.Format("({0} - {1})", ((DateTime)Model.birthdate).Year, ((DateTime)Model.deathdate).Year)</h3>
+}
+
+@if (Model.birthdate != null && Model.deathdate == null)
+{
+    <h3>@string.Format("(р.{0})", ((DateTime)Model.birthdate).Year)</h3>
+
+}
+
+
+
+
+<div  style="margin-right:10px">
+    <img class="img-thumbnail" width="375" height="375" alt ="Фотография не найдена" src="@Url.Action("GetImage", "Author", new { Model.author_id})"/>
+</div>
+
+<div style="margin-left:10px">
+    @Html.LabelFor(m => m.biography)
+    <div>
+        @Model.biography
+    </div>
+</div>
+
+
+@*@using(Html.BeginForm())
+{
+    @Html.DisplayForModel()
+    <input type="submit" value="Submit">
+}*@
+

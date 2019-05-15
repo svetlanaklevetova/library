@@ -1,0 +1,17 @@
+﻿@model  IEnumerable<string>
+@Html.ActionLink("Все жанры","Index", "Home", null, new { @class = "btn btn-block btn-default btn-lg" })
+
+@foreach (var link in Model)
+{
+    @*@Ajax.RouteLink(link,  new { controller = "Home", action = "GetBooks", genre = link, page = 1 }, new AjaxOptions
+                               {
+                                   UpdateTargetId = "books",
+                                   Url = Url.Action("GetBooks","Home", new { page = 1, genre = link })
+                               },
+
+                           new { @class = "btn btn-block btn-default btn-lg" })*@
+    
+    var claS = "btn btn-block btn-default btn-lg" + (link == ViewBag.SelectedGenre ? " btn-primary" : "");
+    
+    @Html.RouteLink(link, new { controller = "Home", action = "Index", genre = link, page = 1 }, new { @class= claS})
+}

@@ -1,0 +1,18 @@
+﻿@using MyBooks.WebUI.Models
+@model CommonBookListViewModel
+
+<table class="table table-hover table-striped">
+    <tr><th></th><th>Название</th><th>Издательство</th><th></th><th></th></tr>
+
+    @foreach (var p in Model.CommonBooks)
+    {
+        <tr>
+            <td>@p.common_book_id</td>
+            <td>@p.common_book_name</td>
+            <td>@p.phouse.name</td>
+            <td>@Html.ActionLink("Изменить", "EditCommonBook", "CommonBook", new { @p.common_book_id }, new { @class = "edit", @id = "editT" })</td>
+            <td>@Html.ActionLink("Добавить книги", "AddBooksToCommonBook", "CommonBook", new { @p.common_book_id }, new { @class = "edit", @id = "editT" })</td>
+        </tr>
+    }
+</table>
+

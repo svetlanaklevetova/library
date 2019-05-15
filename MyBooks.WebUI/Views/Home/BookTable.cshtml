@@ -1,0 +1,25 @@
+﻿@*@model IEnumerable<MyBooks.Domain.Entities.Book>*@
+@using MyBooks.WebUI.Models
+@model BookListViewModel
+
+
+<table class="table table-hover table-striped">
+    <tr><th></th><th>Автор</th><th>Название</th><th>Жанр</th><th></th></tr>
+
+    @foreach (var p in Model.Books)
+    {
+        <tr>
+            <td>@p.book_id</td>
+            <td>@string.Join(" ",p.author.fname, p.author.lname)</td>
+            <td>@p.name</td>
+            <td>@p.genre.name</td>
+            <td>@Html.ActionLink("Изменить", "EditBook", "Book", new { @p.book_id }, new { @class = "edit", @id="editT"})</td>
+        </tr>
+    }
+</table>
+@*<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetBooks", new { bookPage = x }))
+</div>*@
+
+
+

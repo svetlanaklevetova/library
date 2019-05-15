@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBooks.Domain", "MyBooks.Domain\MyBooks.Domain.csproj", "{1EF15E29-D0F1-4716-84E3-788F543BDC6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBooks.WebUI", "MyBooks.WebUI\MyBooks.WebUI.csproj", "{925D0344-DEDC-4D02-985B-2B84A4DC8129}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBooks.UnitTests", "MyBooks.UnitTests\MyBooks.UnitTests.csproj", "{9B5A1470-44B3-4BDA-834D-BC9079C74CB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EF15E29-D0F1-4716-84E3-788F543BDC6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF15E29-D0F1-4716-84E3-788F543BDC6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF15E29-D0F1-4716-84E3-788F543BDC6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF15E29-D0F1-4716-84E3-788F543BDC6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925D0344-DEDC-4D02-985B-2B84A4DC8129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925D0344-DEDC-4D02-985B-2B84A4DC8129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925D0344-DEDC-4D02-985B-2B84A4DC8129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925D0344-DEDC-4D02-985B-2B84A4DC8129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5A1470-44B3-4BDA-834D-BC9079C74CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5A1470-44B3-4BDA-834D-BC9079C74CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5A1470-44B3-4BDA-834D-BC9079C74CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5A1470-44B3-4BDA-834D-BC9079C74CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

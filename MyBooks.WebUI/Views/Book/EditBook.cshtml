@@ -1,0 +1,46 @@
+﻿@using MyBooks.Domain.Entities
+@using MyBooks.WebUI.Models
+@model MyBooks.WebUI.Models.EditBookListViewModel
+
+@{
+    ViewBag.Title = "EditBook";
+}
+
+<h2>@string.Format("{0} {2}\"{1}\"", Model.book.author.fname, Model.book.name, Model.book.author.lname)</h2>
+
+@using(Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    
+    //TODO: выкосить эти таблицы <table>
+     @Html.HiddenFor(b=>b.book.book_id)
+     <table>
+         <tr>
+             <th></th>
+             <th></th>
+         </tr>
+         <tr>
+             <td>@Html.LabelFor(b=>b.book.name)</td>
+             <td>@Html.EditorFor(b=>b.book.name)</td>
+         </tr>
+         <tr>
+             <td>@Html.LabelFor(m=>m.book.author_id)</td>
+             <td>@Html.DropDownListFor(m => m.book.author_id, Model.Authors)</td>
+         </tr>
+         <tr>
+             <td>@Html.LabelFor(m => m.book.genre_id)</td>
+             <td>@Html.DropDownListFor(m => m.book.genre_id, Model.Genres)</td>
+         </tr>
+         @*<tr>
+             <td>@Html.LabelFor(m => m.book.phouse_id)</td>
+             <td>@Html.DropDownListFor(m => m.book.phouse_id, Model.Publishers)</td>
+         </tr>*@
+         <tr>
+             <td>@Html.LabelFor(m => m.book.year)</td>
+             <td>@Html.EditorFor(m=>m.book.year)</td>
+         </tr>
+     </table>
+    <button type="submit" class="send">Отправить</button>
+}
+
+

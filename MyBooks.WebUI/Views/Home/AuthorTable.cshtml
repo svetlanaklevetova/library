@@ -1,0 +1,20 @@
+﻿@*@model IEnumerable<MyBooks.Domain.Entities.Author>*@
+@using MyBooks.WebUI.Models
+@using MyBooks.Domain.Entities
+@model AuthorListViewModel
+<table class="table table-hover table-striped">
+    <tr><th></th><th>Имя</th><th>Фамилия</th><th></th></tr>
+
+    @foreach (var p in Model.Authors)
+    {
+        <tr>
+            @* TODO: it is interesting, why I'm not able to send p instead of  p.author_id to controller*@
+            <td>@Html.ActionLink(p.author_id.ToString(), "AuthorSummary", "Author", new { author = p.author_id }, new { @class = "edit", @id = "editT" })</td>
+            <td>@p.fname</td>
+            <td>@p.lname</td>
+            <td>@Html.ActionLink("Изменить", "EditAuthor", "Author", new { author_id = p.author_id}, new { @class = "edit", @id="editT"})</td>
+            
+        </tr>
+    }
+</table>
+

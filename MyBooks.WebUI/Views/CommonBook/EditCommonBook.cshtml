@@ -1,0 +1,60 @@
+﻿@using MyBooks.Domain.Entities
+@using MyBooks.WebUI.Models
+@*@model MyBooks.WebUI.Models.EditCommonBookViewModel*@
+@model MyBooks.Domain.Entities.CommonBook
+
+
+
+<h2>@Model.common_book_name</h2>
+
+@using (Html.BeginForm("EditCommonBook", "CommonBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary()
+    @Html.HiddenFor(b => b.common_book_id)
+
+    <table>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+        
+        <tr>
+            <td>@Html.LabelFor(m => m.common_book_name)</td>
+            <td>@Html.EditorFor(m => m.common_book_name)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.phouse_id)</td>
+            <td>@Html.DropDownListFor(m => m.phouse_id, (List<SelectListItem>)ViewBag.publishers)</td>
+      
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.year)</td>
+            <td>@Html.EditorFor(m => m.year)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Книги")</td>
+            @*<td>@Html.ListBoxFor(m=>m.Books, (List<SelectListItem>)ViewBag.books)</td>*@
+            @*<td>@Html.DropDownListFor(m => m.Books, (List<SelectListItem>)ViewBag.books)</td>*@
+        </tr>
+    </table>
+    <div class="form-group">
+        <div style="position:relative;">
+            <label>Изображение</label>
+            <a class="btn" href="javascript:;">
+                Choose file...
+                <input type="file" name="Image" size="40" style="position:absolute; z-index:2; top:0; left:0; filter:alpha(opacity=0); opacity:0; background-color:transparent; color:transparent;" onchange='$("#upload-file-info").html($(this).val());' />
+            </a>
+            <span class="label label-info" id="upload-file-info"></span>
+        </div>
+        @if (Model.imagedata == null)
+        {
+            <div class="form-control-static">No image</div>
+        }
+        else
+        {
+            <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage", "CommonBook", new { common_book_id = Model.common_book_id })" />
+        }
+    </div>
+    <button type="submit" class="send">Отправить</button>
+}
+
